@@ -23,17 +23,17 @@ async function main() {
 	})
 	const date = new Date()
 	const filename = `./log/${ date.getFullYear() }-${ date.getMonth() + 1 }-${ date.getDate() }_${ date.getHours() }-${ date.getMinutes() }-${ date.getSeconds() }.log`
+	await access(filename).catch(async err => {
+		// console.log(err)
+		console.log(`making file \"${ filename }\"`)
+		await write(filename, "")
+	})
 	let count = 0
 	const interval = setInterval(async () => {
 		const cpuTemp = [await cat("/sys/class/thermal/thermal_zone0/temp"), await cat("/sys/class/thermal/thermal_zone1/temp")]
 		// const cpuTemp = [await cat("readme.md"), await cat("readme.md")]
 		const logdate = new Date()
 		const logstr = `${ logdate.getFullYear() }-${ ("0" + (logdate.getMonth() + 1)).slice(-2) }-${ ("0" + logdate.getDate()).slice(-2) }_${ ("0" + logdate.getHours()).slice(-2) }-${ ("0" + logdate.getMinutes()).slice(-2) }-${ ("0" + logdate.getSeconds()).slice(-2) }: ${ cpuTemp[0] } ${ cpuTemp[1] }`
-		await access(filename).catch(async err => {
-			// console.log(err)
-			console.log(`making file \"${ filename }\"`)
-			await write(filename, "")
-		})
 		// console.log(await read(filename).catch(err => { console.log(err) }))
 		await write(filename, await read(filename) + logstr + "\n")
 		// await write(filename, logstr)
