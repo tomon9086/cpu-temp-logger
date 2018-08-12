@@ -37,8 +37,8 @@ async function main() {
 		// console.log(await read(filename).catch(err => { console.log(err) }))
 		await write(filename, await read(filename) + logstr + "\n")
 		// await write(filename, logstr)
-		if(++count >= 3) clearInterval(interval)
+		if(++count >= 1440 * 2) clearInterval(interval)
 		// console.log(interval, count)
-	}, 1000)
+	}, 60000)
 }
 main()
