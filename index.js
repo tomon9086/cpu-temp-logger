@@ -28,7 +28,7 @@ async function main() {
 		const cpuTemp = [await cat("/sys/class/thermal/thermal_zone0/temp"), await cat("/sys/class/thermal/thermal_zone1/temp")]
 		// const cpuTemp = [await cat("readme.md"), await cat("readme.md")]
 		const logdate = new Date()
-		const logstr = `${ logdate.getFullYear() }-${ logdate.getMonth() + 1 }-${ logdate.getDate() }_${ logdate.getHours() }-${ logdate.getMinutes() }-${ logdate.getSeconds() }: ${ cpuTemp[0] } ${ cpuTemp[1] }`
+		const logstr = `${ logdate.getFullYear() }-${ ("0" + (logdate.getMonth() + 1)).slice(-2) }-${ ("0" + logdate.getDate()).slice(-2) }_${ ("0" + logdate.getHours()).slice(-2) }-${ ("0" + logdate.getMinutes()).slice(-2) }-${ ("0" + logdate.getSeconds()).slice(-2) }: ${ cpuTemp[0] } ${ cpuTemp[1] }`
 		await access(filename).catch(async err => {
 			// console.log(err)
 			console.log(`making file \"${ filename }\"`)
